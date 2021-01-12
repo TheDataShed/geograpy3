@@ -182,8 +182,8 @@ class Locator(object):
         '''
         self.debug=debug
         self.correctMisspelling=correctMisspelling
-        self.db_path=os.path.dirname(os.path.realpath(__file__))
-        self.db_file = db_file or os.getenv('GEOGRAPY_DB', self.db_path + "/locs.db")
+        self.db_path=os.getenv('GEOGRAPY_DB', os.path.dirname(os.path.realpath(__file__)))
+        self.db_file = db_file or self.db_path + "/locs.db"
         logger.info(f'DB location: {self.db_file}')
         self.view="GeoLite2CityLookup"
         self.sqlDB=SQLDB(self.db_file,errorDebug=True)
