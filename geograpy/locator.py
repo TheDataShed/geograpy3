@@ -28,6 +28,7 @@ Created on 2020-09-18
 
 @author: wf
 '''
+import logging
 import os
 import urllib
 import re
@@ -42,6 +43,9 @@ from geograpy.utils import remove_non_ascii
 from geograpy import wikidata
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 class City(object):
     '''
@@ -180,6 +184,7 @@ class Locator(object):
         self.correctMisspelling=correctMisspelling
         self.db_path=os.path.dirname(os.path.realpath(__file__))
         self.db_file = db_file or os.getenv('GEOGRAPY_DB', self.db_path + "/locs.db")
+        logger.info(f'DB location: {self.db_file}')
         self.view="GeoLite2CityLookup"
         self.sqlDB=SQLDB(self.db_file,errorDebug=True)
         self.getAliases()
